@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+	<table border="1" width="100%">
+		<tr>
+			<td><h3>Manage Product</h3></td>
+			<td><a href="View/product/add.phtml">ADD</a></td>
+		</tr>
+		<tr>
+			<th>product_id</th>
+			<th>name</th>
+			<th>sku</th>
+			<th>cost</th>
+			<th>price</th>
+			<th>status</th>
+			<th>description</th>
+			<th>inserted_at</th>
+			<th>EDIT</th>
+			<th>DELETE</th>
+	    </tr>
+	    <?php foreach($products as $product): ?>
+		<tr>
+	    	<td><?php echo $product['product_id']; ?></td>
+			<td><?php echo $product['name'];?></td>
+			<td><?php echo $product['sku'];?></td>
+			<td><?php echo $product['cost'];?></td>
+			<td><?php echo $product['price'];?></td>
+			<td><?php echo $product['status'];?></td>
+			<td><?php echo $product['discription'];?></td>
+			<td><?php echo $product['inserted_at'];?></td>
+			<td><a href="index.php?c=product&a=edit&product_id=<?php echo $product['product_id'] ?>">EDIT</a></td>
+			<td><a href="index.php?c=product&a=delete&product_id=<?php echo $product['product_id'];?>">DELETE</a></td>
+
+		</tr>
+	    <?php endforeach;?>
+
+	</table>
+
+</body>
+</html>

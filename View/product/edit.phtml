@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+
+<body>
+<?php
+ 
+ 		$product_id = $product['product_id'];	
+		$name = $product['name'];
+		$sku = $product['sku'];
+		$cost = $product['cost'];
+		$price = $product['price'];
+		$quantity = $product['quantity'];
+		$status = $product['status'];
+		$discription = $product['discription'];
+
+		
+?>
+	<form method="POST" action="index.php?c=product&a=update">
+		<table border="1" width="50%">
+			<tr>
+				<td>product_id</td>
+				<td><input type="text" name="product_id" value="<?php echo $product_id ?>"></input></td>
+			</tr>
+			<tr>
+				<td>name</td>
+				<td><input type="text" name="name" value="<?php echo $name ?>"></input></td>
+			</tr>
+			<tr>
+				<td>sku</td>
+				<td><input type="text" name="sku" value="<?php echo $sku ?>"></input></td>
+			</tr>
+			<tr>
+				<td>cost</td>
+				<td><input type="text" name="cost" value="<?php echo $cost ?>"></input></td>
+			</tr>
+			<tr>
+				<td>price</td>
+				<td><input type="text" name="price" value="<?php echo $price ?>"></input></td>
+			</tr>
+			<tr>
+				<td>status</td>
+				<td>
+					<Select name="status">
+						<option value="AVAILABLE">AVILABLE</option>
+						<option value="INAVAILABLE">INAVAILABLE</option>
+					</Select>
+				</td>
+			</tr>
+			<tr>
+				<td>Quantity</td>
+				<td><input type="text" name="quantity" value="<?php echo $quantity ?>"></input></td>
+			</tr>
+			<tr>
+				<td>discription</td>
+				<td><input type="text" name="discription" value="<?php echo $discription ?>"></input></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="submit"></input></td>
+			</tr>
+		</table>
+	</form>
+
+</body>
+</html>
