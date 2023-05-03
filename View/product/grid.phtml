@@ -1,3 +1,7 @@
+<?php 
+$products = $this->products;
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,18 +27,18 @@
 			<th>EDIT</th>
 			<th>DELETE</th>
 	    </tr>
-	    <?php foreach($products as $product): ?>
+	    <?php foreach($products as $row): ?>
 		<tr>
-	    	<td><?php echo $product['product_id']; ?></td>
-			<td><?php echo $product['name'];?></td>
-			<td><?php echo $product['sku'];?></td>
-			<td><?php echo $product['cost'];?></td>
-			<td><?php echo $product['price'];?></td>
-			<td><?php echo $product['status'];?></td>
-			<td><?php echo $product['discription'];?></td>
-			<td><?php echo $product['inserted_at'];?></td>
-			<td><a href="index.php?c=product&a=edit&product_id=<?php echo $product['product_id'] ?>">EDIT</a></td>
-			<td><a href="index.php?c=product&a=delete&product_id=<?php echo $product['product_id'];?>">DELETE</a></td>
+	    	<td><?php echo $row->product_id; ?></td>
+			<td><?php echo $row->name;?></td>
+			<td><?php echo $row->sku;?></td>
+			<td><?php echo $row->cost;?></td>
+			<td><?php echo $row->price;?></td>
+			<td><?php echo $row->status;?></td>
+			<td><?php echo $row->discription;?></td>
+			<td><?php echo $row->inserted_at;?></td>
+			<td><a href="index.php?c=product&a=edit&product_id=<?php echo $row->product_id ?>">EDIT</a></td>
+			<td><a href="index.php?c=product&a=delete&product_id=<?php echo $row->product_id ?>">DELETE</a></td>
 
 		</tr>
 	    <?php endforeach;?>

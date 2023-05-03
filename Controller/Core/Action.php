@@ -1,10 +1,28 @@
 <?php 
-
+require_once 'Model/Core/View.php';
 class Controller_Core_Action
 {
 	public $message = null;
 	public $layout = null;
 	public $request = null;
+	public $view = null;
+
+	public function setView($view)
+	{
+		$this->view = $view;
+	}
+
+	public function getView()
+	{
+		if($this->view)
+		{
+			return $this->view;
+		}
+		$view = new Model_Core_View();
+		$this->setView($view);
+		return $this->view;
+
+	}
 
 	public function setMessage(Model_Core_Message $message)
 	{
