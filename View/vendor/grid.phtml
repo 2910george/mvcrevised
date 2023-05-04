@@ -1,6 +1,6 @@
 <?php 
 
-$customer = $this->customers;
+$vendors = $this->vendors;
 
 ?>
 
@@ -16,10 +16,10 @@ $customer = $this->customers;
 	<table border="1" width="100%">
 		<tr>
 			<td><h3>CUSTOMER INFO</h3></td>
-			<td><h3><a href="">ADD</a></h3></td>
+			<td><h3><a href="view/vendor/add.phtml">ADD</a></h3></td>
 		</tr>
 		<tr>
-			<th>customer_id</th>
+			<th>vendor_id</th>
 			<th>First Name</th>
 			<th>Last Name</th>
 			<th>E Mail</th>
@@ -31,9 +31,9 @@ $customer = $this->customers;
 			<th>EDIT</th>
 			<th>DELETE</th>
 		</tr>
-		<?php foreach($customer as $row): ?>
+		<?php foreach($vendors as $row): ?>
 		<tr>
-			<td><?php echo $row->customer_id ?></td>
+			<td><?php echo $row->vendor_id ?></td>
 			<td><?php echo $row->first_name ?></td>
 			<td><?php echo $row->last_name ?></td>
 			<td><?php echo $row->email ?></td>
@@ -42,8 +42,8 @@ $customer = $this->customers;
 			<td><?php echo $row->status ?></td>
 			<td><?php echo $row->address ?></td>
 			<td><?php echo $row->city ?></td>
-			<td><a href="index.php?c=product&a=edit&customer_id=<?php echo $row->customer_id ?>">EDIT</a></td>
-			<td><a href="index.php?c=product&a=deletae&customer_id=<?php echo $row->customer_id ?>">DELETE</a></td>
+			<td><a href="index.php?c=vendor&a=edit&vender_id=<?php echo $row->vendor_id ?>">EDIT</a></td>
+			<td><a href="index.php?c=vendor&a=delete&vendor_id=<?php echo $row->vendor_id ?>">DELETE</a></td>
 		</tr>
 	    <?php endforeach;?>
 

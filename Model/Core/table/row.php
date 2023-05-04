@@ -139,8 +139,7 @@ class Model_Core_Table_Row
 	public function fetchOne($query)
 	{
 		$result = $this->getTable()->fetchOne($query);
-		echo "george";
-		print_r($result);
+		
 		if($result)
 		{
 			$this->data = $result;
@@ -174,13 +173,14 @@ class Model_Core_Table_Row
 		}
 		$query = "SELECT * FROM `{$this->getTableName()}` WHERE `{$column}` = $id";
 		$result = $this->getTable()->fetchOne($query);
+
 		if($result)
 		{
-			$this->data = $result;
-			return $result;
+		
+		    $this->data = $result;
 		}
 
-		return false;
+		return $this;
 	}
 
 	public function save()

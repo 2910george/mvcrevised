@@ -67,7 +67,6 @@ class Controller_Product extends Controller_Core_Action
 			$product_id = $request->getParam('product_id');
 			$products = Ccc::getModel('Product_Row');
 			$data = $products->load($product_id);
-			die();
 			$view = $this->getView();
 			$view->setTemplate('product/edit.phtml');
 			$view->setData(['products'=>$data]);
