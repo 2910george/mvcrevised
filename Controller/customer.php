@@ -59,7 +59,8 @@ class Controller_Customer extends Controller_Core_Action
 				$customer = Ccc::getModel('Customer_Row');
 				$address = Ccc::getModel('Customer_Address_Row');
 				$customer->setData($customer_data);
-				$id = $customer->save($customer_data);
+				$id['customer_id'] = $customer->save($customer_data);
+				array_push($address_data, $id);
 				$address->setData($address_data);
 				$address->save($address_data);
 				header("Location: http://localhost/mvc/index.php?c=customer&a=grid ");

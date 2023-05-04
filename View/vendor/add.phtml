@@ -6,34 +6,35 @@
 	<title></title>
 </head>
 <body>
-	<table>
+	<form method="POST" action="../../index.php?c=vendor&a=save">
+	<table border="1" width="50%">
 		<tr>
-			<td><h3>Customer Info</h3></td>
+			<td><h3>Vendor Info</h3></td>
 		</tr>
 		<tr>
 			<td>First Name</td>
-			<td><input type="text" name="customer[first_name]"></input></td>
+			<td><input type="text" name="vendor[first_name]"></input></td>
 		</tr>
 		<tr>
 			<td>Last Name</td>
-			<td><input type="text" name="customer[last_name]"></input></td>
+			<td><input type="text" name="vendor[last_name]"></input></td>
 		</tr>
 		<tr>
 			<td>Email</td>
-			<td><input type="text" name="customer[email]"></input></td>
+			<td><input type="text" name="vendor[email]"></input></td>
 		</tr>
 		<tr>
 			<td>Mobile</td>
-			<td><input type="text" name="customer[mobile]"></input></td>
+			<td><input type="text" name="vendor[mobile]"></input></td>
 		</tr>
 		<tr>
 			<td>Gender</td>
-			<td><input type="text" name="customer[gender]"></input></td>
+			<td><input type="text" name="vendor[gender]"></input></td>
 		</tr>
 		<tr>
 			<td>status</td>
 			<td>
-				<select name="customer[status]">
+				<select name="vendor[status]">
 					<option value="AVAILABLE">AVAILABLE</option>
 					<option value="INAVAILABLE">INAVAILABLE</option>
 				</select>
