@@ -23,6 +23,7 @@ class Model_Core_Adapter
 	public function fetchAll($query)
 	{
 		$conn = $this->connection();
+		print_r($query);
 		$result = $conn->query($query);
 		$rows = $result->fetch_all(MYSQLI_ASSOC);
 		return $rows;
