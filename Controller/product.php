@@ -13,6 +13,7 @@ class Controller_Product extends Controller_Core_Action
 		
 		try
 		{
+			echo "<pre>";
 			$query = "SELECT * FROM `product`";
 			$product = Ccc::getModel('Product_Row');
 			$products = $product->fetchAll($query);
@@ -66,7 +67,7 @@ class Controller_Product extends Controller_Core_Action
 			$product_id = $request->getParam('product_id');
 			$products = Ccc::getModel('Product_Row');
 			$data = $products->load($product_id);
-			print_r($data);
+			die();
 			$view = $this->getView();
 			$view->setTemplate('product/edit.phtml');
 			$view->setData(['products'=>$data]);
@@ -75,34 +76,7 @@ class Controller_Product extends Controller_Core_Action
 		}
 	}
 
-	public function updateAction()
-
-	{
-		$request = new Model_Core_Request();
-
-		if($request->isPost())
-		{		
-			$data = $request->getPost();
-			$product_id = $data['product_id'];
-			$name = $data['name'];
-			$sku = $data['sku'];
-			$price = $data['price'];
-			$cost = $data['cost'];
-			$quantity = $data['quantity'];
-			$status = $data['status'];
-			$discription = $data['discription'];
-			$updated_at = date('Y-m-d H:i:s');
-
-				$query = "UPDATE `product` 
-						  SET `name`='$name',`sku`='$sku',`cost`='$cost',`price`='$price',`quantity`='$quantity',`status`='$status',`discription`='$discription',`updated_at`='$updated_at' 
-						  WHERE `product_id` = $product_id";
-
-			$adpter = new Model_Core_Adapter();
-			$adpter->update($query);
-			header("Location: http://localhost/mvc/index.php?c=product&a=grid ");
-
-		}
-	}
+	
 
 	public function deleteAction()
 	{

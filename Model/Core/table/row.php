@@ -139,13 +139,12 @@ class Model_Core_Table_Row
 	public function fetchOne($query)
 	{
 		$result = $this->getTable()->fetchOne($query);
+		echo "george";
 		print_r($result);
-		echo "george row";
-		die();
 		if($result)
 		{
 			$this->data = $result;
-			return $result;
+			return $this->data;
 		}
 		return false;
 	}
@@ -189,12 +188,12 @@ class Model_Core_Table_Row
 		if(!array_key_exists($this->getPrimaryKey(), $this->data))
 		{
 			$id = $this->getTable()->insert($this->data);
-			/*if($id)
+			if($id)
 			{
 				$this->load($id);
-				return $this;
+				return $id;
 			}
-			return false;*/
+			return false;
 		}
 		else
 		{
