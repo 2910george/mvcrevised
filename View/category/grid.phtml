@@ -1,1 +1,40 @@
-grid
+<?php 
+$category = $this->categorys;
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+
+	<table border="1" width="100%">
+		<tr>
+			<td><h3>Manage Category</h3></td>
+			<td><a href="View/Category/grid.phtml">ADD</a></td>
+		</tr>
+		<tr>
+			<th>Category_id</th>
+			<th>name</th>
+			<th>Description</th>
+			<th>status</th>
+			<th>EDIT</th>
+			<th>DELETE</th>
+		</tr>
+		<?php foreach($category as $row): ?>
+		<tr>
+			<td><?php echo $row->category_id ?></td>
+			<td><?php echo $row->name ?></td>
+			<td><?php echo $row->description ?></td>
+			<td><?php echo $row->status ?></td>
+			<td><a href="index.php?c=category&a=edit&category_id=<?php echo $row->category_id ?>">EDIT</a></td>
+			<td><a href="index.php?c=category&a=delete&category_id=<?php echo $row->category_id ?>">DELETE</a></td>
+		</tr>
+	    <?php endforeach; ?>
+	</table>
+
+</body>
+</html>
