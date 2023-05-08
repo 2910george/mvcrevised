@@ -9,11 +9,19 @@ class Controller_Customer extends Controller_Core_Action
 	
 	public function gridAction()
 	{
+		
+		$layout = $this->getLayout();
+		$grid = new Block_Customer_Grid();
+		$layout->prepareChildren();
+		$layout->getChild('content')->addChild('grid',$grid);
+		$layout->render();
+
+		/*
 		try
 		{
 			$query = "SELECT * FROM `customer`";
 			/*$query = "SELECT * FROM `customer` JOIN `customer_address` 
-		          ON customer.customer_id=customer_address.customer_id ";*/
+		          ON customer.customer_id=customer_address.customer_id ";
 			$customer = Ccc::getModel('Customer_Row');
 			$customers = $customer->fetchAll($query);
 			if(!$customers)
@@ -28,7 +36,7 @@ class Controller_Customer extends Controller_Core_Action
 		catch(Exeception $e)
 		{
 			throw new Exception("Error Processing Request", 1);
-		}
+		}*/
 	}
 
 	public function addAction()
@@ -36,6 +44,16 @@ class Controller_Customer extends Controller_Core_Action
 		    $view = $this->getView();
 			$view->setTemplate('customer/add.phtml');
 			$view->render();
+	}
+
+	public function editAction()
+	{
+			$layout = $this->getLayout();
+			$edit = new Block_Customer_Edit();
+			$layout->prepareChildren();
+			$layout->getChild('content')->addChild('edit',$edit);
+			$layout->render();
+
 	}
 	public function saveAction()
 	{

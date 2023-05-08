@@ -12,27 +12,27 @@
  		$row = $this->products;
 		
 ?>
-	<form method="POST" action="index.php?c=product&a=save&product_id=<?php echo $row['product_id'] ?>">
+	<form method="POST" action="index.php?c=product&a=save&product_id=<?php echo $row->product_id ?>">
 		<table border="1" width="50%">
 			<tr>
 				<td>product_id</td>
-				<td><input type="text" name="product_id" value="<?php echo $row['product_id'] ?>"></input></td>
+				<td><input type="text" name="product_id" value="<?php echo $row->product_id ?>"></input></td>
 			</tr>
 			<tr>
 				<td>name</td>
-				<td><input type="text" name="name" value="<?php echo $row['name'] ?>"></input></td>
+				<td><input type="text" name="name" value="<?php echo $row->name ?>"></input></td>
 			</tr>
 			<tr>
 				<td>sku</td>
-				<td><input type="text" name="sku" value="<?php echo $row['sku'] ?>"></input></td>
+				<td><input type="text" name="sku" value="<?php echo $row->sku ?>"></input></td>
 			</tr>
 			<tr>
 				<td>cost</td>
-				<td><input type="text" name="cost" value="<?php echo $row['cost'] ?>"></input></td>
+				<td><input type="text" name="cost" value="<?php echo $row->cost ?>"></input></td>
 			</tr>
 			<tr>
 				<td>price</td>
-				<td><input type="text" name="price" value="<?php echo $row['price'] ?>"></input></td>
+				<td><input type="text" name="price" value="<?php echo $row->price ?>"></input></td>
 			</tr>
 			<tr>
 				<td>status</td>
@@ -45,11 +45,11 @@
 			</tr>
 			<tr>
 				<td>Quantity</td>
-				<td><input type="text" name="quantity" value="<?php echo $row['quantity'] ?>"></input></td>
+				<td><input type="text" name="quantity" value="<?php echo $row->quantity ?>"></input></td>
 			</tr>
 			<tr>
 				<td>discription</td>
-				<td><input type="text" name="discription" value="<?php echo $row['discription'] ?>"></input></td>
+				<td><input type="text" name="discription" value="<?php echo $row->discription ?>"></input></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center"><input type="submit"></input></td>

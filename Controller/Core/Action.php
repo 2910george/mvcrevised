@@ -1,12 +1,27 @@
 <?php 
 require_once 'Model/Core/View.php';
-class Controller_Core_Action
+class Controller_Core_Action extends Model_Core_View
 {
 	public $message = null;
 	public $layout = null;
 	public $request = null;
 	public $view = null;
 
+	public function setLayout(Block_Core_Layout $layout)
+	{
+		$this->layout = $layout;
+	}
+
+	public function getLayout()
+	{
+		if($this->layout)
+		{
+			return $this->layout;
+		}
+		$layout = new Block_Core_Layout();
+		$this->setLayout($layout);
+		return $this->layout;
+	}
 	public function setView($view)
 	{
 		$this->view = $view;

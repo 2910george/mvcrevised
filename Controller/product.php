@@ -11,7 +11,16 @@ class Controller_Product extends Controller_Core_Action
 	public function gridAction()
 	{
 		
-		try
+		echo "george";
+		$layout = $this->getLayout();
+		$grid = new Block_Product_Grid();
+		$layout->prepareChildren();
+		$layout->getChild('content')->addChild('grid',$grid);
+		$layout->render();
+		
+
+
+		/*try
 		{
 			echo "<pre>";
 			$query = "SELECT * FROM `product`";
@@ -30,7 +39,7 @@ class Controller_Product extends Controller_Core_Action
 		{
 			throw new Exception("Error Processing Request", 1);
 			
-		}
+		}*/
 
 	}
 
@@ -64,18 +73,33 @@ class Controller_Product extends Controller_Core_Action
 		$request = new Model_Core_Request();
 		if($request->isRequest())
 		{
-			$product_id = $request->getParam('product_id');
+			
+			$layout = $this->getLayout();
+			$edit = new Block_Product_Edit();
+			$layout->prepareChildren();
+			$layout->getChild('content')->addChild('edit',$edit);
+			$layout->render();
+
+
+			/*$product_id = $request->getParam('product_id');
 			$products = Ccc::getModel('Product_Row');
 			$data = $products->load($product_id);
 			$view = $this->getView();
 			$view->setTemplate('product/edit.phtml');
 			$view->setData(['products'=>$data]);
-			$view->render();
+			$view->render();*/
 			
 		}
 	}
 
-	
+	public function addAction()
+	{
+			$layout = $this->getLayout();
+			$edit = new Block_Product_Add();
+			$layout->prepareChildren();
+			$layout->getChild('content')->addChild('edit',$edit);
+			$layout->render();
+	}	
 
 	public function deleteAction()
 	{
