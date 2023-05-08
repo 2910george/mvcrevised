@@ -5,7 +5,15 @@ class Controller_Vendor extends Controller_Core_Action
 	
 	public function gridAction()
 	{
-		try
+		
+		$layout = $this->getLayout();
+		$grid = new Block_Vendor_Grid();
+		$layout->prepareChildren();
+		$layout->getChild('content')->addChild('grid',$grid);
+		$layout->render();
+
+
+		/*try
 		{
 			$query = "SELECT * FROM `vendor` JOIN `vendor_address` 
 					ON vendor.vendor_id=vendor_address.vendor_id";
@@ -19,7 +27,7 @@ class Controller_Vendor extends Controller_Core_Action
 		catch(Exeception $e)
 		{
 			throw new Exception("Error Processing Request", 1);
-		}
+		}*/
 	}
 
 	public function addAction()
@@ -29,7 +37,14 @@ class Controller_Vendor extends Controller_Core_Action
 
 	public function editAction()
 	{
-		$request = Ccc::getModel('Core_Request');
+		
+			$layout = $this->getLayout();
+			$edit = new Block_Vendor_Edit();
+			$layout->prepareChildren();
+			$layout->getChild('content')->addChild('edit',$edit);
+			$layout->render();
+
+		/*$request = Ccc::getModel('Core_Request');
 		if($request->isPost())
 		{
 			$vendor_id = $request->getParam('vendor_id');
@@ -42,7 +57,7 @@ class Controller_Vendor extends Controller_Core_Action
 			$view->setData(['vendors'=>$data]);
 			$view->setData(['address'=>$data2]);
 			$view->render(); 
-		}
+		}*/
 	}
 
 	public function saveAction()

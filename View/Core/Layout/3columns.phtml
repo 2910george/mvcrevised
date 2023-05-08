@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+	<table width="100%" border="1">
+		<tr colspan="3">
+			<td align="center">header</td>
+		</tr>
+		<tr>
+			<td><?php $this->getChild('left')->render(); ?></td>
+			<td><?php $this->getChild('content')->render(); ?></td>
+			<td><?php $this->getChild('right')->render(); ?></td>	
+		</tr>
+		<tr colspan="3">
+			<td align="center">footer</td>
+		</tr>
+		
+	</table>
+
+</body>
+</html>

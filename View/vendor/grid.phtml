@@ -1,7 +1,5 @@
 <?php 
-
 $vendors = $this->vendors;
-
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +40,7 @@ $vendors = $this->vendors;
 			<td><?php echo $row->status ?></td>
 			<td><?php echo $row->address ?></td>
 			<td><?php echo $row->city ?></td>
-			<td><a href="index.php?c=vendor&a=edit&vender_id=<?php echo $row->vendor_id ?>">EDIT</a></td>
+			<td><a href="index.php?c=vendor&a=edit&vendor_id=<?php echo $row->vendor_id ?>">EDIT</a></td>
 			<td><a href="index.php?c=vendor&a=delete&vendor_id=<?php echo $row->vendor_id ?>">DELETE</a></td>
 		</tr>
 	    <?php endforeach;?>
