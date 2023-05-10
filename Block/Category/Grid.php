@@ -1,24 +1,21 @@
 <?php 
 
-class Block_Category_Grid extends Block_Core_Layout
+class Block_Vender_Grid extends Block_Core_Layout
 {
-	
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
-		$this->setTemplate('Category/grid.phtml');
-		$this->prepareData();
+		$this->setTemplate('vendor/grid.phtml');
 	}
 
 	public function prepareData()
 	{
-		$sql = "SELECT * FROM `category`";
-		$category = Ccc::getModel('Category_Row');
-		$categorys = $category->fetchAll($sql);
-		$this->setData(['categorys'=>$categorys]);
+		$sql = "SELECT * FROM `vender`";
+		$vender = Ccc::getModel('vender_row');
+		$venders = $vender->fetchAll($vender);
+		$vender->setData(['vendors'=>$vendors]);
 		return $this;
 	}
 }
-
 
 ?>
