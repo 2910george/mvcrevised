@@ -6,7 +6,9 @@ class Controller_Core_Action extends Model_Core_View
 	public $layout = null;
 	public $request = null;
 	public $view = null;
+    public $pager = null;
 
+    
 	public function setLayout(Block_Core_Layout $layout)
 	{
 		$this->layout = $layout;

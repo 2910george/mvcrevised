@@ -16,11 +16,25 @@ class Block_Product_Grid extends Block_Core_Layout
 
 	public function prepareData()
 	{
+		$pager = $this->getPager();
+		$sql1 = "SELECT COUNT(`product_id`) FROM `product` ORDER BY `product_id` DESC ";
+		$total = Ccc::getModel('Core_Adapter')->fetchOne($sql1);
+		// $value = print_r(array_values($total));
+
+		$pager->setTotalRecords(23)->calculate();
+		//echo $pager->startLimit;
+
+		$sql2 = "SELECT * FROM `product` LIMIT $pager->startLimit,$pager->recordPerPage";
+		$product_row = Ccc::getModel('product_row');
+		$products = $product_row->fetchAll($sql2);
+		$this->setData(['products'=>$products]);
+		return $this;
+		/* 
 		$sql = "SELECT * FROM `product` ORDER BY `product_id` DESC";
 		$product_row = Ccc::getModel('product_row');
 		$products = $product_row->fetchAll($sql);
 		$this->setData(['products'=>$products]);
-		return $this;
+		return $this;*/
 	}
 
 /*	public function setColumn(array $column)

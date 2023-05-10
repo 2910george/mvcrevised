@@ -24,10 +24,10 @@ class Controller_Category extends Controller_Core_Action
 
 	public function addAction()
 	{
-		$layout = $this->getLayout();
+			$layout = $this->getLayout();
 			$add = new Block_Category_Add();
 			$layout->prepareChildren();
-			$layout->getChild('content')->addChild('add',$add);
+			$layout->getChild('content')->addChild('add  ',$add);
 			$layout->render();
 	}
 

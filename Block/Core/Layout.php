@@ -28,6 +28,22 @@ class Block_Core_Layout extends Block_Core_Template
 		$block->setLayout($this);
 		return $block;
 	}
+	public function setPager($pager)
+    {
+    	$this->pager = $pager;
+    }
+
+    public function getPager()
+    {
+    	if($this->pager)
+    	{
+    		return $this->pager;
+    	}
+    	$pager = Ccc::getModel('Core_Pager');
+    	$rpp = Ccc::getModel('Core_Request')->getParam('p');
+    	$this->setPager($pager);
+    	return $this->pager;
+    }
 }
 
 

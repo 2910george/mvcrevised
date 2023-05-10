@@ -1,4 +1,4 @@
-<?php 
+n<?php 
 
 class Controller_Vendor extends Controller_Core_Action
 {
@@ -85,7 +85,7 @@ class Controller_Vendor extends Controller_Core_Action
 			//$address_data['vendor_id'] = $id;
 			$address->setData($address_data);
 			$id = $address->save();
-			header("Location: http://localhost/mvc/index.php?c=product&a=grid ");
+			header("Location: http://localhost/mvc/index.php?c=vendor&a=grid ");
 
 		}
 
