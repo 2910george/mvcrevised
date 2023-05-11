@@ -1,15 +1,16 @@
 <?php 
+require_once 'Model/Core/Url.php';
 
-class Model_Core_View 
+class Model_Core_View extends Model_Core_Url
 {
 	protected $data = [];
 	protected $template = null;
 
-	public function __construct()
-	{
-			
-	}
 
+    public function __construct()
+    {
+
+    }
 	public function setTemplate($template)
 	{
 		$this->template = $template;
@@ -63,6 +64,14 @@ class Model_Core_View
 	{
 		require_once "view".DS.$this->getTemplate();
 	}
+
+	public function redirect($action = null,$controller = null,$param = [],$reset = false)
+	{
+		$url = $this->getUrl()->getUrl($action,$controller,$param,$reset);
+		header("location:{$url}");
+		exit();
+	}
+	
 }
 
 

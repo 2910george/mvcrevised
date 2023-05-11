@@ -6,7 +6,7 @@ class Model_Customer_Address extends Model_Core_Table
 	function __construct()
 	{
 		$this->setTableName('customer_address');
-		$this->setPrimaryKey('customer_id');
+		$this->setPrimaryKey('address_id');
 	}
 }
 

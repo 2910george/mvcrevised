@@ -79,7 +79,7 @@ class Model_Core_Table
 		$keyString = '`'.implode('`,`', $keys).'`';
 		$valueString = "'".implode("','",$values)."'";
 
-		$sql = "INSERT INTO `{$this->getTableName()}` ({$keyString}) VALUES ({$valueString})";
+		echo $sql = "INSERT INTO `{$this->getTableName()}` ({$keyString}) VALUES ({$valueString})";
 		return $this->getAdapter()->insert($sql);
 
 	}
@@ -97,7 +97,7 @@ class Model_Core_Table
 			$conditionArray[] = "`$key` = '$value'";
 		}
 		$primaryKeyString = implode('AND',$conditionArray);
-		$sql = "UPDATE `{$this->getTableName()}` SET {$keyValueString} WHERE {$primaryKeyString}";
+		echo $sql = "UPDATE `{$this->getTableName()}` SET {$keyValueString} WHERE {$primaryKeyString}";
 		return $this->getAdapter()->update($sql);
 	}
 

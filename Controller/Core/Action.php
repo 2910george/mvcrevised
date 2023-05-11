@@ -1,14 +1,31 @@
 <?php 
 require_once 'Model/Core/View.php';
-class Controller_Core_Action extends Model_Core_View
+class Controller_Core_Action
 {
 	public $message = null;
 	public $layout = null;
+	public $session = null;
 	public $request = null;
 	public $view = null;
     public $pager = null;
 
-    
+    public function getSessions()
+    {
+    	if ($this->session) 
+    	{
+    		return $this->session;
+    	}
+    	$session = new Model_Core_Session();
+    	$this->setSessions($session);
+    	return $session;
+    }
+
+    public function setSessions(Model_Core_Session $session)
+    {
+    	$this->session = $session;
+    	return $this;
+    }
+
 	public function setLayout(Block_Core_Layout $layout)
 	{
 		$this->layout = $layout;
@@ -41,7 +58,7 @@ class Controller_Core_Action extends Model_Core_View
 
 	}
 
-	public function setMessage(Model_Core_Message $message)
+	public function setMessages(Model_Core_Message $message)
 	{
 		$this->message = $message;
 		return $this;
@@ -73,6 +90,20 @@ class Controller_Core_Action extends Model_Core_View
 		$request =  new Model_Core_Request();
 		$this->setRequest($request);
 		return $this->request;
+	}
+
+	public function redirect($action = null,$controller = null,$param = [],$reset = false)
+	{
+		$url = $this->getUrl($action,$controller,$param,$reset);
+		echo $url;
+		die();
+		header("location:{$url}");
+		exit();
+	}
+
+	public function render()
+	{
+		return $this->getView()->render();
 	}
 }
 

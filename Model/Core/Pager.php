@@ -94,7 +94,7 @@ class Model_Core_Pager
 			$this->previous = 0; 
 		}
 
-		$this->next = ($this->getNumberOfPages())+1;
+		$this->next = ($this->getCurrentPage())+1;
 
 		if($this->currentPage >= $this->numberOfPages )
 		{
