@@ -10,7 +10,6 @@ class Block_Vender_Grid extends Block_Core_Layout
 
 	public function prepareData()
 	{
-		
 		$pager = $this->getPager();
 		$sql1 = "SELECT COUNT(`category_id`) FROM `category`";
 		$total = Ccc::getModel('Core_Adapter')->fetchOne($sql1);
@@ -24,11 +23,6 @@ class Block_Vender_Grid extends Block_Core_Layout
 		$this->setData(['categorys'=>$categorys]);
 		return $this;
 
-		/*$sql = "SELECT * FROM `vender`";
-		$vender = Ccc::getModel('vender_row');
-		$venders = $vender->fetchAll($vender);
-		$vender->setData(['vendors'=>$vendors]);
-		return $this;*/
 	}
 }
 
