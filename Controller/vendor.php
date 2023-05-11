@@ -1,4 +1,4 @@
-n<?php 
+<?php 
 
 class Controller_Vendor extends Controller_Core_Action
 {
@@ -12,27 +12,15 @@ class Controller_Vendor extends Controller_Core_Action
 		$layout->getChild('content')->addChild('grid',$grid);
 		$layout->render();
 
-
-		/*try
-		{
-			$query = "SELECT * FROM `vendor` JOIN `vendor_address` 
-					ON vendor.vendor_id=vendor_address.vendor_id";
-			$vendor = Ccc::getModel('Vendor_Row');
-			$vendors = $vendor->fetchAll($query);
-			$view = $this->getView();
-			$view->setTemplate('vendor/grid.phtml');
-			$view->setData(['vendors'=>$vendors]);
-			$view->render();
-		}
-		catch(Exeception $e)
-		{
-			throw new Exception("Error Processing Request", 1);
-		}*/
 	}
 
 	public function addAction()
 	{
-		require_once 'view/vendor/add.phtml';
+		$layout = $this->getLayout();
+		$edit = new Block_Vendor_Add();
+		$layout->prepareChildren();
+		$layout->getChild('content')->addChild('edit',$edit);
+		$layout->render();
 	}
 
 	public function editAction()
@@ -43,65 +31,90 @@ class Controller_Vendor extends Controller_Core_Action
 			$layout->prepareChildren();
 			$layout->getChild('content')->addChild('edit',$edit);
 			$layout->render();
-
-		/*$request = Ccc::getModel('Core_Request');
-		if($request->isPost())
-		{
-			$vendor_id = $request->getParam('vendor_id');
-			$vendor = Ccc::getModel('Vendor_Row');
-			$data = $vendor->load($vendor_id);
-			$address = Ccc::getModel('Vendor_Address_Row');
-			$data2 = $address->load(15);
-			$view = $this->getView();
-			$view->setTemplate('vendor/edit.phtml');
-			$view->setData(['vendors'=>$data]);
-			$view->setData(['address'=>$data2]);
-			$view->render(); 
-		}*/
 	}
 
 	public function saveAction()
 	{
-		$request = Ccc::getModel('Core_Request');
-		if($request->isPost())
-		{
-			$vendor_data = $request->getPost('vendor');
-			$address_data = $request->getPost('Address');
-			
-			if(array_key_exists('vendor_id',$vendor_data))
-			{
-				$vendor_data['updated_at'] = date('Y-m-d H:i:s');
+		try
+		{	
+			$request = Ccc::getModel('Core_Request');
+			$message = Ccc::getModel('Core_Message');
 
+			if(!$request->isPost()){
+				throw new Exception("Error Processing Request", 1);
 			}
-			else
-			{
-				$vendor_data['inserted_at'] = date('Y-m-d H:i:s');
-			}
-			$vendor = Ccc::getModel('Vendor_Row');
-			$address = Ccc::getModel('Vendor_Address_Row');
 
-			$vendor->setData($vendor_data);
-			$id = $vendor->save();
-			//$address_data['vendor_id'] = $id;
-			$address->setData($address_data);
-			$id = $address->save();
-			header("Location: http://localhost/mvc/index.php?c=vendor&a=grid ");
+				$vendor_data = $request->getPost('vendor');
+				if (!$vendor_data) {
+					throw new Exception("Data Not found.", 1);
+				}
 
+				$vendorRow = Ccc::getModel('Vendor_Row');
+				if (!$vendorRow) {
+					throw new Exception("Error Processing Request", 1);
+				}
+
+				if ($id = (int)$request->getParam('vendor_id')) {
+						$vendorRow->load($id);
+						$vendorRow->updated_at = date('Y-m-d H:i:s');
+				} else {
+						$vendorRow->inserted_at = date('Y-m-d H:i:s');
+				}
+
+				$vendorRow->setData($vendor_data);
+				if (!$vendorRow->save()) {
+					throw new Exception("Data not Saved.", 1);
+				}
+
+				$address_data = $request->getPost('Address');
+				if (!$address_data) {
+					throw new Exception("Address Data Not found.", 1);
+				}
+
+				$addressRow = Ccc::getModel('Vendor_Address_Row');
+				if (!$addressRow) {
+					throw new Exception("Error Processing Request", 1);
+				}
+
+				$address_data['vendor_id'] = $vendorRow->vendor_id;
+				if ($id = (int)$request->getParam('vendor_id')) {
+						$addressRow->load($id,'vendor_id');
+				}
+				$addressRow->setData($address_data);
+
+				if (!$addressRow->save()) {
+					throw new Exception("Data not Saved.", 1);
+				}
+				$message->addMessage('VENDOR ADDED',Model_Core_Message::SUCCESS);
 		}
-
+		catch(Exeception $e)
+		{
+			$message->getMessage()->addMessage('VENDOR ADDED',Model_Core_Message::FAILURE);
+		}	
+		header("Location: http://localhost/mvc/index.php?c=vendor&a=grid&p=1");
+			
 	}
 
 	public function deleteAction()
 	{
-		$request = Ccc::getModel('Core_Request');
-		if($request->isRequest())
+		try
 		{
-			$vendor_id = $request->getParam('vendor_id');
-			$vendor = Ccc::getModel('Vendor_Row');
-			$vendor->load($vendor_id);
-			$vendor->delete();
-			header("Location: http://localhost/mvc/index.php?c=product&a=grid "); 
+			$request = Ccc::getModel('Core_Request');
+			$message = Ccc::getModel('Core_Message');
+			if($request->isRequest())
+			{
+				$vendor_id = $request->getParam('vendor_id');
+				$vendor = Ccc::getModel('Vendor_Row');
+				$vendor->load($vendor_id);
+				$vendor->delete();
+			}
+			$message->addMessage('VENDOR DELETED',Model_Core_Message::SUCCESS);
 		}
+		catch(Exeception $e)
+		{
+			$message->getMessage()->addMessage('VENDOR NOT DELETED',Model_Core_Message::FAILURE);
+		}
+			header("Location: http://localhost/mvc/index.php?c=vendor&a=grid&p=1"); 
 	}
 }
 

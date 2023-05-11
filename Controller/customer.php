@@ -15,35 +15,16 @@ class Controller_Customer extends Controller_Core_Action
 		$layout->prepareChildren();
 		$layout->getChild('content')->addChild('grid',$grid);
 		$layout->render();
-
-		/*
-		try
-		{
-			$query = "SELECT * FROM `customer`";
-			/*$query = "SELECT * FROM `customer` JOIN `customer_address` 
-		          ON customer.customer_id=customer_address.customer_id ";
-			$customer = Ccc::getModel('Customer_Row');
-			$customers = $customer->fetchAll($query);
-			if(!$customers)
-			{
-				throw new Exception("Error Processing Request", 1);
-			}
-			$view = $this->getView();
-			$view->setTemplate('customer/grid.phtml');
-			$view->setData(['customers'=>$customers]);
-			$view->render();
-		}
-		catch(Exeception $e)
-		{
-			throw new Exception("Error Processing Request", 1);
-		}*/
 	}
 
 	public function addAction()
 	{
-		    $view = $this->getView();
-			$view->setTemplate('customer/add.phtml');
-			$view->render();
+		$layout = $this->getLayout();
+		$edit = new Block_Customer_Add();
+		$layout->prepareChildren();
+		$layout->getChild('content')->addChild('edit',$edit);
+		$layout->render();
+		    
 	}
 
 	public function editAction()
@@ -57,53 +38,87 @@ class Controller_Customer extends Controller_Core_Action
 	}
 	public function saveAction()
 	{
-		try
+		try 
 		{
-				$request = Ccc::getModel('Core_Request');
-			if($request->isPost())
-			{
-				$customer_data = $request->getPost('customer');
-				$address_data = $request->getPost('Address');
-			
-				if(array_key_exists('customer_id',$customer_data))
-				{
-					$customer_data['updated_at'] = date('Y-m-d H:i:s');
-				}
-				else
-				{
-					$customer_data['inserted_at'] = date('Y-m-d H:i:s');
-				}
-
-				$customer = Ccc::getModel('Customer_Row');
-				$address = Ccc::getModel('Customer_Address_Row');
-				$customer->setData($customer_data);
-				$id['customer_id'] = $customer->save($customer_data);
-				array_push($address_data, $id);
-				$address->setData($address_data);
-				$address->save($address_data);
-				header("Location: http://localhost/mvc/index.php?c=customer&a=grid ");
-
+				
+			$request = Ccc::getModel('Core_Request');
+			$message = Ccc::getModel('Core_Message');
+			if(!$request->isPost()){
+				throw new Exception("Error Processing Request", 1);
 			}
-		}
-		catch(Exeception $e)
-		{
-			throw new Exception("Error Processing Request", 1);
-			
-		}
+
+				$customer_data = $request->getPost('customer');
+				if (!$customer_data) {
+					throw new Exception("Data Not found.", 1);
+				}
+
+				$customerRow = Ccc::getModel('Customer_Row');
+				if (!$customerRow) {
+					throw new Exception("Error Processing Request", 1);
+				}
+
+				if ($id = (int)$request->getParam('customer_id')) {
+						$customerRow->load($id);
+						$customerRow->updated_at = date('Y-m-d H:i:s');
+				} else {
+						$customerRow->inserted_at = date('Y-m-d H:i:s');
+				}
+
+				$customerRow->setData($customer_data);
+				if (!$customerRow->save()) {
+					throw new Exception("Data not Saved.", 1);
+				}
+
+				$address_data = $request->getPost('Address');
+				if (!$address_data) {
+					throw new Exception("Address Data Not found.", 1);
+				}
+
+				$addressRow = Ccc::getModel('Customer_Address_Row');
+				if (!$addressRow) {
+					throw new Exception("Error Processing Request", 1);
+				}
+
+				$address_data['customer_id'] = $customerRow->customer_id;
+				if ($id = (int)$request->getParam('customer_id')) {
+						$addressRow->load($id,'customer_id');
+				}
+				$addressRow->setData($address_data);
+
+				if (!$addressRow->save()) {
+					throw new Exception("Data not Saved.", 1);
+				}
+				$message->addMessage('CUSTOMER ADDED',Model_Core_Message::SUCCESS);
+			}
+			catch(Exeception $e)
+			{
+				$message->getMessage()->addMessage('CUSTOMER NOT ADDED',Model_Core_Message::FAILURE);
+			}
+			header("Location: http://localhost/mvc/index.php?c=customer&a=grid&p=1");
 	}
 
 	public function deleteAction()
 	{
-		$request = Ccc::getModel('Core_Request');
-		if($request->isRequest())
-		{
-			$customer_id = $request->getParam('customer_id');
-			$customer = Ccc::getModel('Customer_Row');
-			$customer->load($customer_id);
-			$customer->delete();
-			header("Location: http://localhost/mvc/index.php?c=customer&a=grid ");
+		try
+		{	
+			$request = Ccc::getModel('Core_Request');
+			$message = Ccc::getModel('Core_Message');
+			if($request->isRequest())
+			{
+				$customer_id = $request->getParam('customer_id');
+				$customer = Ccc::getModel('Customer_Row');
+				$customer->load($customer_id);
+				$customer->delete();
 
+			}
+			$message->getMessage('CUSTOMER DELETED',Model_Core_Message::SUCCESS);
 		}
+		catch(Exeception $e)
+		{
+			$message->getMessage()->addMessage('CUSTOMER NOT DELETED',Model_Core_Message::FAILURE);
+			
+		}
+			header("Location: http://localhost/mvc/index.php?c=customer&a=grid ");
 	}
 }
 

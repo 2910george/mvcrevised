@@ -10,61 +10,46 @@ class Controller_Product extends Controller_Core_Action
 	
 	public function gridAction()
 	{
-		
-		echo "george";
+	
 		$layout = $this->getLayout();
 		$grid = new Block_Product_Grid();
 		$layout->prepareChildren();
 		$layout->getChild('content')->addChild('grid',$grid);
 		$layout->render();
 		
-
-
-		/*try
-		{
-			echo "<pre>";
-			$query = "SELECT * FROM `product`";
-			$product = Ccc::getModel('Product_Row');
-			$products = $product->fetchAll($query);
-			if(!$products)
-			{
-				throw new Exception("Error Processing Request", 1);
-			}
-			$view = $this->getView();
-			$view->setTemplate('product/grid.phtml');
-			$view->setData(['products'=>$products]);
-			$view->render();
-		}
-		catch(Exeception $e)
-		{
-			throw new Exception("Error Processing Request", 1);
-			
-		}*/
-
 	}
 
 	public function saveAction()
 	{
-		$request = new Model_Core_Request();
-		if($request->isPost())
+		try
 		{
-			$data = $request->getPost();
-			
-            $id = $request->getParam('product_id');
-            if($id)
-            {
-            	$products = Ccc::getModel('Product_Row');
-            	$products->load($id);
-            	$products->updated_at=date('Y-m-d H:i:s');
-            }
-            else
-            {
-				$products = Ccc::getModel('Product_Row');
-				$products->inserted_at = date("Y-m-d H:i:s");
-		    }
-			$products->setData($data);
-			$products->save();
-			header("Location: http://localhost/mvc/index.php?c=product&a=grid ");
+			$request = new Model_Core_Request();
+			$message = Ccc::getModel('Core_Message');
+			if($request->isPost())
+			{
+				$data = $request->getPost();
+	            $id = $request->getParam('product_id');
+	            if($id)
+	            {
+	            	$products = Ccc::getModel('Product_Row');
+	            	$products->load($id);
+	            	$data['updated_at']=date('Y-m-d H:i:s');
+	            }
+	            else
+	            {
+					$products = Ccc::getModel('Product_Row');
+					$data['inserted_at'] = date("Y-m-d H:i:s");
+			    }
+				$products->setData($data);
+				$products->save();
+				header("Location: http://localhost/mvc/index.php?c=product&a=grid&p=1");
+			}
+			$zipcode =$data['zipcode'];
+			$message->addMessage($zipcode,Model_Core_Message::SUCCESS);
+		}
+		catch(Exeception $e)
+		{
+			$message->getMessage()->addMessage('PRODUCT NOT ADDED',Model_Core_Message::FAILURE);
 		}
 	}
 
@@ -79,40 +64,42 @@ class Controller_Product extends Controller_Core_Action
 			$layout->prepareChildren();
 			$layout->getChild('content')->addChild('edit',$edit);
 			$layout->render();
-
-
-			/*$product_id = $request->getParam('product_id');
-			$products = Ccc::getModel('Product_Row');
-			$data = $products->load($product_id);
-			$view = $this->getView();
-			$view->setTemplate('product/edit.phtml');
-			$view->setData(['products'=>$data]);
-			$view->render();*/
 			
 		}
 	}
 
 	public function addAction()
 	{
-			$layout = $this->getLayout();
-			$edit = new Block_Product_Add();
-			$layout->prepareChildren();
-			$layout->getChild('content')->addChild('edit',$edit);
-			$layout->render();
+		$layout = $this->getLayout();
+		$edit = new Block_Product_Add();
+		$layout->prepareChildren();
+		$layout->getChild('content')->addChild('edit',$edit);
+		$layout->render();
 	}	
 
 	public function deleteAction()
 	{
-		$request = new Model_Core_Request();
-		if($request->isRequest())
+		try
 		{
+			$message = Ccc::getModel('Core_Message'); 
+			// print_r($message);die();
+			$request = new Model_Core_Request();
+			if($request->isRequest())
+			{
 
-			$product_id = $request->getParam('product_id');
-			$product = Ccc::getModel('Product_Row');
-			$product->load($product_id);
-			$result = $product->delete();
-			header("Location: http://localhost/mvc/index.php?c=product&a=grid ");
+				$product_id = $request->getParam('product_id');
+				$product = Ccc::getModel('Product_Row');
+				$product->load($product_id);
+				$result = $product->delete();
+			}
+			$message->addMessage('PRODUCT DELETED',Model_Core_Message::SUCCESS);
 		}
+		catch(Exeception $e)
+		{
+			$message->getMessage()->addMessage('PRODUCT NOT DELETED',Model_Core_Message::FAILURE);
+		}
+			header("Location: http://localhost/mvc/index.php?c=product&a=grid&p=1");
+
 	}
 }
 

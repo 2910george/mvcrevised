@@ -1,5 +1,6 @@
 <?php 
 $vendors = $this->vendors;
+$pager = $this->getPager();
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +14,7 @@ $vendors = $this->vendors;
 
 	<table border="1" width="100%">
 		<tr>
-			<td><h3>CUSTOMER INFO</h3></td>
+			<td><h3>VENDOR INFO</h3></td>
 			<td><h3><a href="view/vendor/add.phtml">ADD</a></h3></td>
 		</tr>
 		<tr>
@@ -44,8 +45,23 @@ $vendors = $this->vendors;
 			<td><a href="index.php?c=vendor&a=delete&vendor_id=<?php echo $row->vendor_id ?>">DELETE</a></td>
 		</tr>
 	    <?php endforeach;?>
-
-
 	</table>
+	<table>
+	<td>
+		<a href="index.php?c=vendor&a=grid&p=<?php echo $pager->start; ?>">START</a>
+	</td>
+	<td>
+		<a href="index.php?c=vendor&a=grid&p=<?php echo $pager->previous;?>">PREVIOUS</a>
+	</td>
+	<td>
+		<a href="index.php?c=vendor&a=grid&p=<?php echo $pager->getCurrentPage();?>"><?php echo $pager->getCurrentPage();?></a>
+	</td>
+	<td>
+		<a href="index.php?c=vendor&a=grid&p=<?php echo $pager->next;?>">NEXT</a>
+	</td>
+	<td>
+		<a href="index.php?c=vendor&a=grid&p=<?php echo $pager->end; ?>">END</a>
+	</td>
+    </table>
 </body>
 </html>

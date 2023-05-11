@@ -12,14 +12,6 @@ class Controller_Category extends Controller_Core_Action
 		$layout->getChild('content')->addChild('grid',$grid);
 		$layout->render();
 
-		/*$query = "SELECT * FROM `category`";
-		$category = Ccc::getModel('Category_Row');
-		$categorys = $category->fetchAll($query);
-
-		$view = $this->getView();
-		$view->setTemplate('category/grid.phtml');
-		$view->setData(['categorys'=>$categorys]);
-		$view->render();*/
 	}
 
 	public function addAction()
@@ -42,29 +34,29 @@ class Controller_Category extends Controller_Core_Action
 			$layout->prepareChildren();
 			$layout->getChild('content')->addChild('edit',$edit);
 			$layout->render();
-
-		 /* $id = $request->getParam('category_id'); 
-		  $category = Ccc::getModel('Category_Row');
-		  $data = $category->load($id);
-		  $view = $this->getView();
-		  $view->setTemplate('category/edit.phtml');
-		  $view->setData(['categorys'=>$data]);
-		  $view->render();*/
 		}
 	}
 
 	public function deleteAction()
 	{
-		$request = Ccc::getModel('Core_Request');
-		if($request->isRequest())
+		try
 		{
-			$id = $request->getParam('category_id');
-			$category = Ccc::getModel('Category_Row');
-			$category->load($id);
-			$category->delete();
-			header("Location: http://localhost/mvc/index.php?c=product&a=grid ");
-
+			$message = Ccc::getModel('Core_Message');
+			$request = Ccc::getModel('Core_Request');
+			if($request->isRequest())
+			{
+				$id = $request->getParam('category_id');
+				$category = Ccc::getModel('Category_Row');
+				$category->load($id);
+				$category->delete();
+			}
+			$message->addMessage('CATEGORY DELETED',Model_Core_Message::SUCCESS);
 		}
+		catch(Exeception $e)
+		{
+			$message->getMessage()->addMessage('CATEGORY NOT DELETED',Model_Core_Message::FAILURE);
+		}
+			header("Location: http://localhost/mvc/index.php?c=category&a=grid&p=1");
 	}
 }
 

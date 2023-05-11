@@ -1,0 +1,62 @@
+I am in message
+<?php 
+require_once 'Model/Core/Message.php';
+
+$messageModel = new Model_Core_Message();
+$messages = $messageModel->getMessage();
+
+// print_r($messageModel);
+// print_r($messages);
+if($messages)
+{
+	foreach($messages as $type => $message)
+	{
+		echo "<p class='{$type}'>";
+		echo $message;
+		echo "</p>";
+	}
+}
+
+$messageModel->clearMessage(); 
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+		@keyframes hideAnimation
+		{to
+		{
+			visibility: hidden;
+			width: 0px;
+			height: 0px;
+		}
+
+		}
+
+		.success{
+		background-color: lightgreen;
+		display: block;
+		animation: hideAnimation 0s ease-in 2s ;
+		animation-fill-mode: forwards;
+		text-align-last: center;
+		}
+
+		.failure
+		{
+		background-color: red;
+		display: block;
+		text-align-last: center;
+		}
+		 	
+		.notice
+		{
+		background-color: orange;
+		display: block;
+		text-align-last: center;
+		}
+	</style>
+</head>

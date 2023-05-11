@@ -199,7 +199,6 @@ class Model_Core_Table_Row
 		{
 			$id = $this->getData($this->getPrimaryKey());
 			$condition[$this->getPrimaryKey()] = $id;
-
 			$result = $this->getTable()->update($this->data,$condition);
 			if($result)
 			{

@@ -19,10 +19,10 @@ class Block_Product_Grid extends Block_Core_Layout
 		$pager = $this->getPager();
 		$sql1 = "SELECT COUNT(`product_id`) FROM `product` ORDER BY `product_id` DESC ";
 		$total = Ccc::getModel('Core_Adapter')->fetchOne($sql1);
-		// $value = print_r(array_values($total));
+		
+		$count = $total['COUNT(`product_id`)'];
 
-		$pager->setTotalRecords(23)->calculate();
-		//echo $pager->startLimit;
+		$pager->setTotalRecords($count)->calculate();
 
 		$sql2 = "SELECT * FROM `product` LIMIT $pager->startLimit,$pager->recordPerPage";
 		$product_row = Ccc::getModel('product_row');
