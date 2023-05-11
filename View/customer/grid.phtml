@@ -46,8 +46,23 @@ $customer = $this->customers;
 			<td><a href="index.php?c=customer&a=delete&customer_id=<?php echo $row->customer_id ?>">DELETE</a></td>
 		</tr>
 	    <?php endforeach;?>
-
-
 	</table>
+	<table>
+		<td>
+			<a href="index.php?c=customer&a=grid&p=<?php echo $pager->start; ?>">START</a>
+		</td>
+		<td>
+			<a href="index.php?c=customer&a=grid&p=<?php echo $pager->previous;?>">PREVIOUS</a>
+		</td>
+		<td>
+			<a href="index.php?c=customer&a=grid&p=<?php echo $pager->getCurrentPage();?>"><?php echo $pager->getCurrentPage();?></a>
+		</td>
+		<td>
+			<a href="index.php?c=customer&a=grid&p=<?php echo $pager->next;?>">NEXT</a>
+		</td>
+		<td>
+			<a href="index.php?c=customer&a=grid&p=<?php echo $pager->end; ?>">END</a>
+		</td>
+    </table>
 </body>
 </html>

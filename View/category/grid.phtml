@@ -35,6 +35,23 @@ $category = $this->categorys;
 		</tr>
 	    <?php endforeach; ?>
 	</table>
+	<table>
+	<td>
+		<a href="index.php?c=category&a=grid&p=<?php echo $pager->start; ?>">START</a>
+	</td>
+	<td>
+		<a href="index.php?c=category&a=grid&p=<?php echo $pager->previous;?>">PREVIOUS</a>
+	</td>
+	<td>
+		<a href="index.php?c=category&a=grid&p=<?php echo $pager->getCurrentPage();?>"><?php echo $pager->getCurrentPage();?></a>
+	</td>
+	<td>
+		<a href="index.php?c=category&a=grid&p=<?php echo $pager->next;?>">NEXT</a>
+	</td>
+	<td>
+		<a href="index.php?c=category&a=grid&p=<?php echo $pager->end; ?>">END</a>
+	</td>
+    </table>
 
 </body>
 </html>
