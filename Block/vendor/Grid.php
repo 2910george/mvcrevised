@@ -9,7 +9,7 @@ class Block_Vendor_Grid extends Block_Core_Layout
 		$this->prepareData();
 	}
 
-	public function prepareData()
+	public function getCollection()
 	{
 		
 		$pager = $this->getPager();
@@ -24,13 +24,45 @@ class Block_Vendor_Grid extends Block_Core_Layout
 		$vendors = $vendor_row->fetchAll($sql2);
 		$this->setData(['vendors'=>$vendors]);
 		return $this;
-
-		/*$sql = "SELECT * FROM `vendor`";
-		$vender = Ccc::getModel('vendor_row');
-		$vendors = $vender->fetchAll($sql);
-		$this->setData(['vendors'=>$vendors]);
-		return $this;*/
 	}
+
+	public function count()
+	{
+		$sql = "SELECT COUNT('vendor_id') FROM `vendor`";
+		$count = Ccc::getModel('Vendor_row')->fetchOne($sql);
+		return $count;
+	}
+
+	public function _prepareAction()
+	{
+		$this->addAction('edit',['title' => 'EDIT']);
+		$this->addAction('delete',['title' => 'DELETE']);
+
+		return parent::_prepareAction();
+	}
+
+	public function _prepareColumns()
+	{
+		  $this->addColumn('vendor_id',['title'=>'vendor_id']);
+		  $this->addColumn('first_name',['title'=>'first_name']);
+		  $this->addColumn('last_name',['title'=>'last_name']);
+		  $this->addColumn('email',['title'=>'mobile']);
+		  $this->addColumn('mobile',['title'=>'mobile']);
+		  $this->addColumn('gender',['title'=>'gender']);
+		  $this->addColumn('status',['title'=>'status']);
+
+		  return parent::_prepareColumns();
+	}
+
+	public function _prepareButtons()
+	{
+		$this->addButton('CANCEL',['title'=>'CANCEL']);
+		$this->addButton('ADD',['title'=>'ADD']);
+
+		return parent::_prepareButtons();
+	}
+
+
 }
 
 ?>
