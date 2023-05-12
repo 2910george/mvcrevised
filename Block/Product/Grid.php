@@ -29,28 +29,40 @@ class Block_Product_Grid extends Block_Core_Layout
 		$products = $product_row->fetchAll($sql2);
 		$this->setData(['products'=>$products]);
 		return $this;
-		/* 
-		$sql = "SELECT * FROM `product` ORDER BY `product_id` DESC";
-		$product_row = Ccc::getModel('product_row');
-		$products = $product_row->fetchAll($sql);
-		$this->setData(['products'=>$products]);
-		return $this;*/
+		
 	}
 
-/*	public function setColumn(array $column)
+	public function _prepareColumns()
 	{
-		$this->column = $column;
+		$this->addColumn('product_id',['title'=>'product_id']);
+		$this->addColumn('name',['title'=>'product_id']);
+		$this->addColumn('sku',['title'=>'product_id']);
+		$this->addColumn('cost',['title'=>'product_id']);
+		$this->addColumn('price',['title'=>'product_id']);
+		$this->addColumn('quantity',['title'=>'product_id']);
+		$this->addColumn('description',['title'=>'product_id']);
+		$this->addColumn('inserted_at',['title'=>'product_id']);
+
+		return parent::_prepareColumns();
 	}
 
-	public function getColumn()
+	public function _prepareActions()
 	{
-		return $this->column;
+		$this->addAction('edit',['title' => 'EDIT']);
+		$this->addAction('delete',['title' => 'DELETE']);
 	}
 
-	public function addColumn($key,$value)
+	public function _prepareButtons()
 	{
-		$this->column[$key] = $value;
+		$this->addButtons('cancel',['title' => 'CANCEL']);
+		$this->addButtons('add',['title' => 'ADD']);
 	}
-*/
+
+	public function getCount()
+	{
+		$sql = "SELECT COUNT('product_id') FROM `product`";
+		$count = Ccc::getModel('product')->fetchOne($sql);
+		return $count;
+	}
 }
 ?>

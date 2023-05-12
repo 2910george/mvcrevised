@@ -1,0 +1,30 @@
+<table>
+	<?php if(!$row): ?>
+	<tr>
+		<td><b>DATA NOT FOUND</b></td>
+	</tr>	
+	<?php else: ?>
+
+	<tr>
+		<?php foreach($this->getColumn() as $key => $column):?>
+			<th><?php echo $column['title']; ?></th>
+		<?php endforeach; ?>
+
+		<?php foreach($this->getAction() as $key => $action):?>
+			<th><?php echo $action['title']; ?></th>
+		<?php endforeach; ?>
+	</tr>
+
+	<?php foreach($rows as $row): ?>
+
+	<tr>
+		<?php foreach($this->getColumns() as $key => $column): ?>
+			<td><?php echo $this->getColumnValue($row,$key); ?></td>
+		<?php endforeach; ?>
+
+		<?php foreach($this->getActions() as $key => $action):?>
+			<td><?php echo $action['title']; ?></td>
+		<?php endforeach; ?>
+	</tr>
+    <?php endforeach; ?>
+</table>
